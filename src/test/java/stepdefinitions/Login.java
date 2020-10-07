@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 import utilities.Driver;
 
 
-public class login {
+public class Login {
     @Given("user got the link")
     public void user_got_the_link() {
 

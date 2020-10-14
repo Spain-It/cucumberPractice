@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features ="src\\test\\resources\\features",
         //Path of the step definitions folder
         glue = "stepdefinitions",
-        tags = "@employees",
+        tags = "@api",
         dryRun = false
 
 )

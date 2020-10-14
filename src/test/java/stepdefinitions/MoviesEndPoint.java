@@ -13,7 +13,6 @@ import utilities.ConfigReader;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static io.restassured.RestAssured.*;
 
@@ -29,20 +28,18 @@ public class MoviesEndPoint {
     }
 
     @And("the user sends post request with {string} end point")
-    public void theUserSendsPostRequestWithEndPoint(String endPoint) {
+    public void theUserSendsPostRequestWithEndPoint(String endPoint,Map<String, Object> data) {
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("title","Salamanca");
-        data.put("year",1920);
-        data.put("plot","anyword");
-        data.put("duration",110);
-        data.put("audio_qualities","");
-        data.put("video_qualities","");
-        data.put("genres","");
-
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("title","Salamanca");
+//        data.put("year",1920);
+//        data.put("plot","anyword");
+//        data.put("duration",110);
+//        data.put("audio_qualities","");
+//        data.put("video_qualities","");
+//        data.put("genres","");
 
          response = given().accept(ContentType.JSON).contentType(ContentType.JSON).and().body(data).post(endPoint);
-
 
     }
 

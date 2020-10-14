@@ -13,3 +13,11 @@ Feature: Movies End Point
     And Verify the status code is 201
     When Verify the content Type is "application/json; charset=utf-8"
     Then Print the response body
+
+
+    Scenario: Send Get Http Protocel
+      Given the user set the uri
+      And the user sends get request with "/movies" end point 1410
+      And Verify the status code is 200
+      When Verify the content Type is "application/json; charset=utf-8"
+      Then Verify the response body is equal which is you posted

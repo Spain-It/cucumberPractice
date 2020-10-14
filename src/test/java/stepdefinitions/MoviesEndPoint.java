@@ -1,6 +1,7 @@
 package stepdefinitions;
 
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -60,6 +61,37 @@ public class MoviesEndPoint {
     public void print_the_response_body() {
          response.prettyPrint();
     }
+
+
+    @Given("the user sends get request with {string} end point {int}")
+    public void the_user_sends_get_request_with_end_point(String endPoint, int id) {
+        response = given().accept(ContentType.JSON).and().pathParam("id",id).when().
+                   get(endPoint+"/{id}");
+        response.prettyPrint();
+
+    }
+
+    @Then("Verify the response body is equal which is you posted")
+    public void verify_the_response_body_is_equal_which_is_you_posted() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("id",1410);
+        data.put("title","Salamanca");
+        data.put("year",1920);
+        data.put("plot","anyword");
+        data.put("duration",110);
+        data.put("audio_qualities","");
+        data.put("video_qualities","");
+        data.put("genres","");
+
+        Assert.assertEquals(data.get("id"),response.path("id"));
+        Assert.assertEquals(data.get("title"),response.path("title"));
+        Assert.assertEquals(data.get("year"),response.path("year"));
+        Assert.assertEquals(data.get("plot"),response.path("plot"));
+        Assert.assertEquals(data.get("duration"),response.path("duration"));
+
+    }
+
 
 
 }

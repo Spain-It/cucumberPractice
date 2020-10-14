@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import utilities.ConfigReader;
@@ -21,6 +22,8 @@ import static io.restassured.RestAssured.*;
 public class MoviesEndPoint {
 
     Response response;
+
+    Map<String, Object> data = new HashMap<>();
 
     @Given("the user set the uri")
     public void the_user_set_the_uri() {
@@ -84,11 +87,48 @@ public class MoviesEndPoint {
         data.put("video_qualities","");
         data.put("genres","");
 
+        JsonPath jsonPath = response.jsonPath();
+
+        Assert.assertEquals(data.get("id"),jsonPath.getInt("id"));
+
+
+//        Assert.assertEquals(data.get("id"),response.path("id"));
+//        Assert.assertEquals(data.get("title"),response.path("title"));
+//        Assert.assertEquals(data.get("year"),response.path("year"));
+//        Assert.assertEquals(data.get("plot"),response.path("plot"));
+//        Assert.assertEquals(data.get("duration"),response.path("duration"));
+
+    }
+
+
+    @Given("the user sends put request with {string} end point {int}")
+    public void the_user_sends_put_request_with_end_point(String endPoint, int id) {
+
+        data.put("id",1410);
+        data.put("title","Madrid");
+        data.put("year",1930);
+        data.put("plot","anyword");
+        data.put("duration",110);
+        data.put("audio_qualities","");
+        data.put("video_qualities","");
+        data.put("genres","");
+
+           response=  given().accept(ContentType.JSON).pathParam("id",id).when().body(data).
+                    put(endPoint+"/{id}");
+    }
+
+    @Then("Verify the response body is equal which is you updated")
+    public void verify_the_response_body_is_equal_which_is_you_updated() {
+
+        response = given().get("/movies/1410");
+
         Assert.assertEquals(data.get("id"),response.path("id"));
         Assert.assertEquals(data.get("title"),response.path("title"));
         Assert.assertEquals(data.get("year"),response.path("year"));
         Assert.assertEquals(data.get("plot"),response.path("plot"));
         Assert.assertEquals(data.get("duration"),response.path("duration"));
+
+
 
     }
 

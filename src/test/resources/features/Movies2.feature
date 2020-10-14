@@ -21,3 +21,10 @@ Feature: Movies End Point
       And Verify the status code is 200
       When Verify the content Type is "application/json; charset=utf-8"
       Then Verify the response body is equal which is you posted
+
+
+      Scenario: Send put Http protocol
+        Given the user set the uri
+        And the user sends put request with "/movies" end point 1410
+        And Verify the status code is 204
+        Then Verify the response body is equal which is you updated
